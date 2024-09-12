@@ -1,0 +1,35 @@
+# 仮想環境
+venv/
+.env/
+
+# Pythonのバイトコードファイル
+__pycache__/
+*.py[cod]
+*.pyo
+
+# 環境設定ファイルやシークレット
+.env
+*.env
+config.json
+secrets.json
+
+# IDEやエディタの設定ファイル
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OSによる一時ファイル
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# ログファイル
+*.log
+logs/
+
+# パッケージや依存関係
+site-packages/
+
+# Jupyter Notebookのチェックポイント
+.ipynb_checkpoints/
