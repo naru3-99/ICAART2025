@@ -19,3 +19,10 @@ PACKET_DIRNAME = "input/"
 PACKET_PID_DIRNAME = "PID/"
 TARGET_DATA_PATH = "./target/"
 SYSCALL_INFO_PATH = "./syscall_info.csv"
+
+API_KEY_PATH = "./openai_api_key"
+
+# CHATGPT_MODEL = "gpt-3.5-turbo"
+CHATGPT_MODEL = "gpt-4o-2024-08-06"
+
+CHATGPT_RES_DIR = f"./{CHATGPT_MODEL}_response/"

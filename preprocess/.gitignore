@@ -1,3 +1,6 @@
 *.zip
 DAData/
 target/
+openai_api_key
+gpt-3.5-turbo_response/
+gpt-4o-2024-08-06_response/

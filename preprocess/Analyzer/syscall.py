@@ -92,6 +92,8 @@ sc_byte_str = [b"" for _ in range(PORT_NUMBER)]
 scid_cnt_data_dict = {}
 # 保存するデータを記録するための辞書
 pid_scid_data_dict = {}
+# 時系列順に並べ替えた、PIDごとの辞書
+pid_tsdata_dict = {}
 
 
 def __process_sc1(filepath: str, num: int):
@@ -189,20 +191,35 @@ def __process_sc2():
         pid_scid_data_dict[pid][scid] = f"{time}\t{scname}\t{other}"
 
 
+def __process_sc3():
+    # 時間ごとに並べるのを忘れていたので追加
+    global pid_scid_data_dict, pid_tsdata_dict
+
+    for pid, scid_data_dict in pid_scid_data_dict.items():
+        if not (pid in pid_tsdata_dict.keys()):
+            pid_tsdata_dict[pid] = {}
+        for _, data in scid_data_dict.items():
+            time = data.split("\t")[0]
+            if not time.isdigit():
+                print(data)
+                continue
+            pid_tsdata_dict[pid][int(time)] = data
+
+
 def process_sc(new_path_ls: list, num: int, save_dir: str):
-    global pid_scid_data_dict, scid_cnt_data_dict
+    global pid_scid_data_dict, scid_cnt_data_dict, pid_tsdata_dict
 
     for path in new_path_ls:
         __process_sc1(path, num)
 
-    for path in new_path_ls:
-        __process_sc2()
+    __process_sc2()
+    __process_sc3()
 
-    for pid in pid_scid_data_dict.keys():
+    for pid, time_data_dict in pid_tsdata_dict.items():
         save_path = f"{save_dir}{pid}.csv"
         save_row_ls = []
-        for scid in pid_scid_data_dict[pid].keys():
-            save_row_ls.append(pid_scid_data_dict[pid][scid].replace("\n", "\\n"))
+        for time in sorted(time_data_dict.keys()):
+            save_row_ls.append(time_data_dict[time])
 
         if is_exists(save_path):
             append_str_to_file("\n".join(save_row_ls), save_path)
@@ -210,3 +227,4 @@ def process_sc(new_path_ls: list, num: int, save_dir: str):
             save_str_to_file("\n".join(save_row_ls), save_path)
     scid_cnt_data_dict.clear()
     pid_scid_data_dict.clear()
+    pid_tsdata_dict.clear()
