@@ -53,6 +53,7 @@ FS_SYSCALL_LS = [
     "263-unlinkat",
     "264-renameat",
     "267-readlinkat",
+    "268-fchmodat",
     "292-dup3",
     "316-renameat2",
 ]
@@ -245,9 +246,9 @@ def reformat_data():
 
 
 if __name__ == "__main__":
-    for dn in get_all_dir_names_in(RAW_DATA_PATH):
-        print(dn)
-        packet_to_csv(f"{RAW_DATA_PATH}{dn}/")
+    # for dn in get_all_dir_names_in(RAW_DATA_PATH):
+    #     print(dn)
+    #     packet_to_csv(f"{RAW_DATA_PATH}{dn}/")
 
     ensure_path_exists(TARGET_DATA_PATH)
     for dn in get_all_dir_names_in(RAW_DATA_PATH):
